@@ -8,7 +8,7 @@ function App() {
   const [id, setId] = useState(null)
   const [details, setDetails] = useState({})
   const [pic, setPic] = useState('')
-  const [collapseFlag, setCollapseFlag] = useState(1);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   //componentDidMount API call
   useEffect(() => {
@@ -34,30 +34,21 @@ function App() {
       result = await response.json();
       setPic(result);
     };
-    if (collapseFlag === 0){
-      fetchData()
-    }
-  }, [id]);
-
-  //clicking the same product will collapse it by setting default states
-  useEffect(() => {
-    if (collapseFlag === 1){
+    if (isCollapsed){
       setDetails({});
       setPic('');
+    } else {
+      fetchData()
     }
-  }, [collapseFlag]);
+  }, [id, isCollapsed]);
 
   //click event that sets the collapse flag and/or updates details about the product
-  //fix this. if the item is expanded then collapsed, it cannot expand again until selecting another product
-  //this is because setCollapseFlag(0) is async and happens after the if statement (sync) checking collapse flag in the useEffect that watches id
   function handleClick (e) {
     e.preventDefault();
-    if (parseInt(e.target.dataset.key) + 1 === id && collapseFlag === 0){
-      console.log('inside the if')
-      setCollapseFlag(1);
+    if (parseInt(e.target.dataset.key) + 1 === id && !(isCollapsed)){
+      setIsCollapsed(true);
     } else {
-      console.log('inside the else')
-      setCollapseFlag(0);
+      setIsCollapsed(false);
       setId(parseInt(e.target.dataset.key) + 1);
     }
   }
