@@ -1,7 +1,8 @@
+import './Pics.css'
+
 const Pic = ({pic, id}) => {
     if (id + 1 === parseInt(pic.product_id)){
-      console.log('we made it here!')
-      return (<img src = {pic.results[0].photos[0].thumbnail_url} alt = 'pic'></img>)
+      return (<img src = {pic.results[0].photos[0].thumbnail_url} alt = 'pic' className = 'pic'></img>)
     } else {
       return <></>
     }

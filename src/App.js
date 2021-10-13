@@ -48,11 +48,15 @@ function App() {
   }, [collapseFlag]);
 
   //click event that sets the collapse flag and/or updates details about the product
+  //fix this. if the item is expanded then collapsed, it cannot expand again until selecting another product
+  //this is because setCollapseFlag(0) is async and happens after the if statement (sync) checking collapse flag in the useEffect that watches id
   function handleClick (e) {
     e.preventDefault();
-    if (parseInt(e.target.dataset.key) + 1 === id){
+    if (parseInt(e.target.dataset.key) + 1 === id && collapseFlag === 0){
+      console.log('inside the if')
       setCollapseFlag(1);
     } else {
+      console.log('inside the else')
       setCollapseFlag(0);
       setId(parseInt(e.target.dataset.key) + 1);
     }
@@ -60,9 +64,13 @@ function App() {
 
   //render
   return (
-    <div onClick ={handleClick}>
-      <ProductList products={products} details={details} pic={pic}/>
-    </div>
+    <>
+      <h1 className = 'header'>Click a products title to find out more!</h1>
+      <div onClick ={handleClick} className = 'App-header'>
+        <ProductList products={products} details={details} pic={pic}/>
+      </div>
+      <h1 className = 'header'>Click the title again to collapse!</h1>
+    </>
   );
 }
 
