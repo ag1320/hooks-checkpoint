@@ -1,5 +1,6 @@
 import Details from "./Details";
 import Pic from "./Pic";
+import Card from '@mui/material/Card'
 
 
 const ProductList = ({products, details, pic}) => {
@@ -11,7 +12,6 @@ const ProductList = ({products, details, pic}) => {
             <Details details = {details} id = {index}/>
             <Pic pic = {pic} id = {index}/>
         </>
-            
     ));
     return (
             listProducts
