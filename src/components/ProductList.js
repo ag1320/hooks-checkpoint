@@ -1,21 +1,21 @@
+import Details from "./Details";
+import Pic from "./Pic";
 
 
-const ProductList = ({products}) => {
-    console.log(products)
+const ProductList = ({products, details, pic}) => {
     let listProducts = products.map((product, index) => (
-    // <Grid item xs={12} sm={6} md={4} lg={3}>
-    //     <Card variant="outlined" className="card">
-    //     <CardContent style={{ backgroundColor: "lightgrey" }}>
-            <p key={index}>
+        <>
+            <h3 data-key={index} key = {index}>
             {product.name}
-            </p>
-    //     </CardContent>
-    //     </Card>
-    //</Grid>
+            </h3>
+            <Details details = {details} id = {index}/>
+            <Pic pic = {pic} id = {index}/>
+        </>
+            
     ));
-  
-    // return (<Grid container spacing={4}>{listProducts}</Grid>);
-    return (listProducts)
+    return (
+            listProducts
+        )
   };
 
   export default ProductList;
